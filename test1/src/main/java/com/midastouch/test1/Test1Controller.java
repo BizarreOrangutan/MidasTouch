@@ -6,12 +6,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Test1Controller {
-    @Value("${API_KEY}")
-    private String key;
-    
-    private final ApiService apiService = new ApiService(key);
+    private final ApiService apiService;
 
-    
+    public Test1Controller(ApiService apiService) {
+        this.apiService = apiService;
+    }
 
     public String poop() {
         return "poop from Test1Controller!";

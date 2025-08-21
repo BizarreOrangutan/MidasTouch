@@ -7,13 +7,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Service
 public class ApiService {
 
-    private final String key;
+    @Value("${API_KEY}")
+    private String key;
     private final WebClient webClient;
 
-    // The key is now referenced by its new name, "API_KEY"
-    public ApiService(@Value("${API_KEY}") String key) {
-        this.key = key;
-
+    public ApiService() {
+        
         this.webClient = WebClient.builder()
             .baseUrl("https://api.polygon.io")
             .build();
@@ -21,7 +20,6 @@ public class ApiService {
 
     public String callApi() {
         return webClient.get()
-            // Here, we add the 'apiKey' as a query parameter to the URL
             .uri(uriBuilder -> uriBuilder
                 .path("/v1/open-close/SPY/2025-08-19")
                 .queryParam("adjusted", "true")
