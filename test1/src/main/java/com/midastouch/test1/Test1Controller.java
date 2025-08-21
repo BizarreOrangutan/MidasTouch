@@ -1,12 +1,17 @@
 package com.midastouch.test1;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Test1Controller {
+    @Value("${API_KEY}")
+    private String key;
+    
+    private final ApiService apiService = new ApiService(key);
 
-    private final ApiService apiService = new ApiService();
+    
 
     public String poop() {
         return "poop from Test1Controller!";
@@ -28,4 +33,3 @@ public class Test1Controller {
     }
 }
 
-// API_key = VxtMFrWYUGKx73OOjeDXqVnabbwTQSpT
